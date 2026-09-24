@@ -15,12 +15,7 @@ function imagenPodcastExiste($ruta) {
     $ruta = ltrim($ruta, '/');
     return file_exists($_SERVER['DOCUMENT_ROOT'] . '/dialogoydesarrollo/' . $ruta);
 }
-function formatearFechaPodcast($fecha) {
-    if (empty($fecha)) return '';
-    $meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
-    $ts = strtotime($fecha);
-    return $meses[(int)date('n', $ts) - 1] . ' ' . date('d', $ts) . ', ' . date('Y', $ts);
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

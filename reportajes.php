@@ -25,11 +25,7 @@ $stmt = $pdo->query("SELECT r.*, CONCAT(a.nombres, ' ', a.ap_paterno) as autor
                      ORDER BY r.fecha_publicacion DESC");
 $reportajes = $stmt->fetchAll();
 
-function imagenExiste($ruta) {
-    if (empty($ruta)) return false;
-    $rutaCompleta = $_SERVER['DOCUMENT_ROOT'] . '/dialogoydesarrollo/' . $ruta;
-    return file_exists($rutaCompleta);
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

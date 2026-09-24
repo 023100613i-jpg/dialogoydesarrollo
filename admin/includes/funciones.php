@@ -18,17 +18,7 @@ function obtenerReportajes($pdo, $limite = null) {
     return $stmt->fetchAll();
 }
 
-function obtenerReportajePorId($pdo, $id) {
-    $stmt = $pdo->prepare("SELECT r.*, 
-                                  CONCAT(u.nombres, ' ', u.ap_paterno, ' ', COALESCE(u.ap_materno, '')) as usuario_nombre,
-                                  CONCAT(a.nombres, ' ', a.ap_paterno) as autor_nombre
-                           FROM reportajes r 
-                           LEFT JOIN usuarios u ON r.usuario_id = u.id
-                           LEFT JOIN autores a ON r.autor_id = a.id 
-                           WHERE r.id = ?");
-    $stmt->execute([$id]);
-    return $stmt->fetch();
-}
+
 
 function crearReportaje($pdo, $datos) {
     $sql = "INSERT INTO reportajes 
@@ -83,38 +73,13 @@ function eliminarReportaje($pdo, $id) {
     return $stmt->execute([$id]);
 }
 
-function obtenerAutores($pdo) {
-    try {
-        $stmt = $pdo->query("SELECT id, 
-                                    CONCAT(nombres, ' ', ap_paterno, ' ', COALESCE(ap_materno, '')) as nombre_completo 
-                             FROM autores 
-                             ORDER BY ap_paterno");
-        return $stmt->fetchAll();
-    } catch(PDOException $e) {
-        return [];
-    }
-}
 
-function obtenerUsuarios($pdo) {
-    try {
-        $stmt = $pdo->query("SELECT id, 
-                                    CONCAT(nombres, ' ', ap_paterno, ' ', COALESCE(ap_materno, '')) as nombre_completo 
-                             FROM usuarios 
-                             ORDER BY ap_paterno");
-        return $stmt->fetchAll();
-    } catch(PDOException $e) {
-        return [];
-    }
-}
 
 function obtenerTotalReportajes($pdo) {
     $stmt = $pdo->query("SELECT COUNT(*) FROM reportajes");
     return $stmt->fetchColumn();
 }
 
-function formatearFecha($fecha) {
-    return date('d/m/Y', strtotime($fecha));
-}
 
 function obtenerNombreAutor($pdo, $id) {
     try {
@@ -128,16 +93,4 @@ function obtenerNombreAutor($pdo, $id) {
     }
 }
 
-// ============================================================
-// FUNCIÓN PARA BOLETINES (SOLO UNA VEZ)
-// ============================================================
-function obtenerBoletinPorId($pdo, $id) {
-    $stmt = $pdo->prepare("SELECT b.*, 
-                                  CONCAT(u.nombres, ' ', u.ap_paterno) as usuario_nombre 
-                           FROM boletines b 
-                           LEFT JOIN usuarios u ON b.usuario_id = u.id 
-                           WHERE b.id = ?");
-    $stmt->execute([$id]);
-    return $stmt->fetch();
-}
 ?>

@@ -20,33 +20,16 @@ function obtenerDato($pdo, $sql) {
     }
 }
 
-/**
- * Verifica si la imagen existe físicamente en el servidor.
- */
-function imagenExiste($ruta) {
-    if (empty($ruta)) return false;
-    $ruta = ltrim($ruta, '/');
-    $rutaCompleta = $_SERVER['DOCUMENT_ROOT'] . '/dialogoydesarrollo/' . $ruta;
-    return file_exists($rutaCompleta);
-}
 
 /**
  * Genera la URL pública correcta para mostrar la imagen en el HTML.
  */
-function urlImagen($ruta) {
-    if (empty($ruta)) return '';
-    $ruta = ltrim($ruta, '/');
-    return '/dialogoydesarrollo/' . $ruta;
-}
+
 
 /**
  * Genera la URL pública correcta para el PDF.
  */
-function urlPdf($ruta) {
-    if (empty($ruta)) return '#';
-    $ruta = ltrim($ruta, '/');
-    return '/dialogoydesarrollo/' . $ruta;
-}
+
 
 // Reportaje destacado principal
 // Últimos reportajes (solo publicados)
